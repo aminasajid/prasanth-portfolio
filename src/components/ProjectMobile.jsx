@@ -9,7 +9,7 @@ const checkIcon = (
 </svg>
   );
 
-function ProjectMobile({ project }) {
+function ProjectMobile({ project, onOpen }) {
   const name = project?.name ?? ''
   const headline = project?.headline ?? ''
   const subheading = project?.subheading ?? ''
@@ -20,12 +20,20 @@ function ProjectMobile({ project }) {
   const resolvedLinkText = project?.linkText ?? 'Get a Sneak Peek';
   const resolvedLinkHref = project?.linkHref ?? '#';
 
+  const handleClick = (e) => {
+    if (onOpen) {
+      e.preventDefault()
+      onOpen(project)
+    }
+  }
+
   return (
     <section className="text-white overflow-hidden will-change-transform animate-fade-in">
-      <div className="w-[80%] mx-auto will-change-transform animate-fade-up">
+      {/* Image Section */}
+      <div className="w-[80%] sm:w-[70%] md:w-[60%] mx-auto will-change-transform animate-fade-up">
         <Image
           src={image}
-          alt={name}
+          alt={name || 'Project Image'}
           width={1200}
           height={800}
           className="w-full h-auto object-contain"
@@ -33,34 +41,50 @@ function ProjectMobile({ project }) {
         />
       </div>
 
-      <div className="px-3 pt-[45px] pb-1 space-y-3 rounded-[48px] will-change-transform animate-fade-up"  style={{ backgroundColor: bg }}>
-        <h3 className="text-white font-bold text-[32px] leading-[32px] tracking-[-0.96px]">{name}</h3>
-        <h2 className="text-[rgba(0,0,0,0.6)] text-[40px] font-bold leading-[110%] tracking-[-2px]">{headline}</h2>
-        <p className="text-[rgba(0,0,0,0.6)] font-kamerik text-2xl font-bold leading-[100%] tracking-[-.48px]">{subheading}</p>
+      {/* Content Section */}
+      <div 
+        className="px-4 sm:px-6 pt-8 md:pt-10 pb-4 space-y-4 rounded-[32px] md:rounded-[48px] will-change-transform animate-fade-up"  
+        style={{ backgroundColor: bg }}
+      >
+        <h3 className="text-white font-bold text-2xl sm:text-3xl md:text-[32px] leading-tight tracking-[-0.96px]">
+          {name}
+        </h3>
+        <h2 className="text-[rgba(0,0,0,0.6)] text-3xl sm:text-4xl md:text-[40px] font-bold leading-[110%] tracking-[-2px]">
+          {headline}
+        </h2>
+        <p className="text-[rgba(0,0,0,0.6)] font-kamerik text-xl sm:text-2xl font-bold leading-[100%] tracking-[-.48px]">
+          {subheading}
+        </p>
 
-        {title ? (
-          <h5 className="mt-4 text-white text-base font-medium leading-6 tracking-[-0.08px]">{title}</h5>
-        ) : null}
+        {title && (
+          <h5 className="mt-4 text-white text-sm sm:text-base font-medium leading-6 tracking-[-0.08px]">
+            {title}
+          </h5>
+        )}
 
-        {Array.isArray(features) && features.length > 0 ? (
-          <ul className="mt-2 space-y-3">
+        {Array.isArray(features) && features.length > 0 && (
+          <ul className="mt-2 space-y-2 md:space-y-3">
             {features.map((feature, idx) => (
-              <li key={idx} className="flex items-center gap-2 text-white text-base font-semibold">
-                <span>{checkIcon}</span>
-                <span className='font-redhat font-base font-bold leading-6 tracking-[-0.32px]'>{feature}</span>
+              <li key={idx} className="flex items-start gap-2 text-white text-sm sm:text-base font-semibold">
+                <span className="flex-shrink-0 mt-0.5">{checkIcon}</span>
+                <span className='font-redhat font-bold leading-6 tracking-[-0.32px]'>{feature}</span>
               </li>
             ))}
           </ul>
-        ) : null}
-           <a
-        href={resolvedLinkHref}
-        className="flex flex-row items-center gap-1 justify-center py-3 pl-6 pr-4 bg-white rounded-[66px] h-[64px] w-full"
-      >
-        <span className='text-black text-lg font-bold leading-[100%] tracking-[-0.54px]'>{resolvedLinkText}</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M25.0001 8V21C25.0001 21.2652 24.8947 21.5196 24.7072 21.7071C24.5196 21.8946 24.2653 22 24.0001 22C23.7349 22 23.4805 21.8946 23.293 21.7071C23.1054 21.5196 23.0001 21.2652 23.0001 21V10.4137L8.70757 24.7075C8.51993 24.8951 8.26543 25.0006 8.00007 25.0006C7.7347 25.0006 7.48021 24.8951 7.29257 24.7075C7.10493 24.5199 6.99951 24.2654 6.99951 24C6.99951 23.7346 7.10493 23.4801 7.29257 23.2925L21.5863 9H11.0001C10.7349 9 10.4805 8.89464 10.293 8.70711C10.1054 8.51957 10.0001 8.26522 10.0001 8C10.0001 7.73478 10.1054 7.48043 10.293 7.29289C10.4805 7.10536 10.7349 7 11.0001 7H24.0001C24.2653 7 24.5196 7.10536 24.7072 7.29289C24.8947 7.48043 25.0001 7.73478 25.0001 8Z" fill="black" />
-        </svg>
-      </a>
+        )}
+
+        {/* CTA Button */}
+        <button
+          onClick={handleClick}
+          className="flex flex-row items-center gap-1 justify-center py-3 pl-6 pr-4 bg-white rounded-[66px] h-[56px] sm:h-[64px] w-full transition-transform hover:scale-[1.02] active:scale-[0.98]"
+        >
+          <span className='text-black text-base sm:text-lg font-bold leading-[100%] tracking-[-0.54px]'>
+            {resolvedLinkText}
+          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" className="w-6 h-6 sm:w-8 sm:h-8">
+            <path d="M25.0001 8V21C25.0001 21.2652 24.8947 21.5196 24.7072 21.7071C24.5196 21.8946 24.2653 22 24.0001 22C23.7349 22 23.4805 21.8946 23.293 21.7071C23.1054 21.5196 23.0001 21.2652 23.0001 21V10.4137L8.70757 24.7075C8.51993 24.8951 8.26543 25.0006 8.00007 25.0006C7.7347 25.0006 7.48021 24.8951 7.29257 24.7075C7.10493 24.5199 6.99951 24.2654 6.99951 24C6.99951 23.7346 7.10493 23.4801 7.29257 23.2925L21.5863 9H11.0001C10.7349 9 10.4805 8.89464 10.293 8.70711C10.1054 8.51957 10.0001 8.26522 10.0001 8C10.0001 7.73478 10.1054 7.48043 10.293 7.29289C10.4805 7.10536 10.7349 7 11.0001 7H24.0001C24.2653 7 24.5196 7.10536 24.7072 7.29289C24.8947 7.48043 25.0001 7.73478 25.0001 8Z" fill="black" />
+          </svg>
+        </button>
       </div>
     </section>
   )

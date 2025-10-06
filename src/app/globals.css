@@ -2,7 +2,7 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Syne:wght@400..800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Onest:wght@100..900&family=Syne:wght@400..800&display=swap');
 
 @import "tailwindcss";
 
@@ -13,6 +13,10 @@
   }
   .font-syne {
     font-family: 'Syne', sans-serif;
+  }
+  .font-onset {
+    font-family: "Onest", sans-serif;
+
   }
 }
 

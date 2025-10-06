@@ -2,25 +2,25 @@ import React from 'react';
 
 function Header() {
   return (
-    <header className="hidden lg:block px-4 md:px-[100px] pt-[40px] md:pt-[57px] pb-[20px] md:pb-[30px]">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
+    <header className="hidden lg:block px-4 xl:px-20 pt-10 md:pt-14 pb-5 md:pb-8">
+      <nav className="flex items-center justify-between gap-8" aria-label="Main navigation">
         {/* Left Menu */}
-        <div className="flex gap-[30px] md:gap-[53px] font-syne text-[#555] text-base md:text-xl font-bold tracking-[-0.4px] md:tracking-[-0.64px]">
-          <p>Home</p>
-          <p>Works</p>
+        <div className="flex gap-8 lg:gap-12 xl:gap-[53px] font-syne text-[#555] text-lg lg:text-xl font-bold tracking-[-0.4px] lg:tracking-[-0.64px]">
+          <a href="#home" className="hover:text-black transition-colors">Home</a>
+          <a href="#works" className="hover:text-black transition-colors">Works</a>
         </div>
 
         {/* Center Title */}
-        <div className="text-black text-[16px] md:text-[20px] font-bold tracking-[0.8px] md:tracking-[1.2px]">
+        <h1 className="text-black text-lg lg:text-xl font-bold tracking-[0.8px] lg:tracking-[1.2px] whitespace-nowrap">
           UI UX DESIGNER
-        </div>
+        </h1>
 
         {/* Right Menu */}
-        <div className="flex gap-[30px] md:gap-[53px] font-syne text-[#555] text-base md:text-xl font-bold tracking-[-0.4px] md:tracking-[-0.64px]">
-          <p>Service</p>
-          <p>Contact</p>
+        <div className="flex gap-8 lg:gap-12 xl:gap-[53px] font-syne text-[#555] text-lg lg:text-xl font-bold tracking-[-0.4px] lg:tracking-[-0.64px]">
+          <a href="#service" className="hover:text-black transition-colors">Service</a>
+          <a href="#contact" className="hover:text-black transition-colors">Contact</a>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }

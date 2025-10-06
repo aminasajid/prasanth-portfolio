@@ -1,109 +1,114 @@
 "use client";
 
+import React from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Component imports
 import Banner from "@/components/Banner";
-import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import LatestProjects from "@/components/LatestProjects";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectDetails from "@/components/ProjectDetails";
 import ProjectMobile from "@/components/ProjectMobile";
+import BaseModal from "@/components/modal/BaseModal";
+import CaseStudyModal from "@/components/modal/CaseStudyModal";
+
+// Data imports
+import projects from "@/data/projects";
 
 
 export default function Home() {
-  // Create refs for each ProjectCard
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const [activeProject, setActiveProject] = React.useState(null)
+  const latestStartRef = React.useRef(null)
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger)
+
+    const lastAccent = '#30D5C7'
+
+    const st = ScrollTrigger.create({
+      trigger: latestStartRef.current,
+      start: 'top 80%',
+      onEnter: () => {
+        gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.5, ease: 'power2.out' })
+      },
+      onEnterBack: () => {
+        gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.5, ease: 'power2.out' })
+      },
+      onLeaveBack: () => {
+        gsap.to([document.documentElement, document.body], { backgroundColor: lastAccent, duration: 0.5, ease: 'power2.out' })
+      }
+    })
+
+    return () => {
+      st.kill()
+    }
+  }, [])
+
+  const openProjectModal = (project) => {
+    setActiveProject(project)
+    setIsModalOpen(true)
+  }
+
+  const closeProjectModal = () => {
+    setIsModalOpen(false)
+    // Keep activeProject for animation smoothness; clear after close if desired
+  }
 
   return (
-    <>
+    <main className="relative">
+      {/* Header Section */}
       <Header />
 
+      {/* Hero Banner */}
       <Banner />
-      <p className="text-[#555] text-xl font-bold uppercase text-center px-3 py-6 md:py-24">
-        NO BS, Lets Dive Straight in to some designs
-      </p>
 
-      {(() => {
-        const projects = [
-          {
-            name: 'LOYALTRI',
-            headline: 'Designed By HR for HR',
-            subheading: 'Core HRMS Platform',
-            cardImage: '/images/Loyatri.webp',
-            cardBgColor: '#613CEB',
-            linkText: 'Get a Sneak Peek',
-            linkHref: '#',
-            detailsTitle:
-              'Loyaltri offers a fully integrated Human Resource Management System covering the full employee lifecycle:',
-            features: [
-              'Attendance Tracking',
-              'Employee Analytics',
-              'Payroll Management',
-              'Expenses & Invoicing',
-              'Smooth On & Offboarding Process',
-            ],
-            detailsImage: '/images/loyatri-2.webp',
-          },
-          {
-            name: 'MOTUSONE',
-            headline: 'Easy Event Transportation',
-            subheading: 'Logistics',
-            cardImage: '/images/motusone.webp',
-            cardBgColor: '#3A66D0',
-            linkText: 'Get a Sneak Peek',
-            linkHref: '#',
-            detailsTitle:
-              'Eliminate wasted time on manual payroll calculations. Leverage automated payrolls, tax updates and payment processes to completion.',
-            features: [
-              'Fleet Live Tracking & Status Update',
-              'Event Transportation Analytics',
-              'MIS Event Overview',
-              'Vehicle And Driver Commission Management',
-              'Mobile & Web Application Management',
-            ],
-            detailsImage: '/images/motusone-2.webp',
-          },
-          {
-            name: 'SEED',
-            headline: 'Care in Everywhere!',
-            subheading: 'Students Special Education',
-            cardImage: '/images/seed.webp',
-            cardBgColor: '#30D5C7',
-            linkText: 'Get a Sneak Peek',
-            linkHref: '#',
-            detailsTitle:
-              'Eliminate wasted time on manual payroll calculations. Leverage automated payrolls, tax updates and payment processes to completion.',
-            features: [
-              'Institution Management',
-              'Automated Student Improvment Forms',
-              'Personal Progression Tracking',
-              'Student and School Overview',
-              'Both Skill & Subject wise Improvement Plans ',
-            ],
-            detailsImage: '/images/seed-2.webp',
-          }
-        ];
+      {/* Section Divider */}
+      <section className="text-center px-3 py-6 md:py-24">
+        <p className="text-[#555] text-lg md:text-xl font-bold uppercase">
+          NO BS, Let's Dive Straight into Some Designs
+        </p>
+      </section>
 
-        return (
-          <>
-            {projects.map((project, index) => (
-              <div key={index} className={index === 0 ? "mt-0" : "mt-12"}>
-                {/* Mobile combined view (visible up to 1024px) */}
-                <div className="lg:hidden">
-                  <ProjectMobile project={project} />
-                </div>
+      {/* Projects Section */}
+      <section className="space-y-8 md:space-y-12">
+        {projects.map((project, index) => (
+          <article key={project.name || index} className={index === 0 ? "mt-0" : "mt-8 md:mt-12"}>
+            {/* Mobile combined view (visible up to 1024px) */}
+            <div className="lg:hidden">
+              <ProjectMobile project={project} onOpen={openProjectModal} />
+            </div>
 
-                {/* Desktop / Tablet original layout (from 1024px and up) */}
-                <div className="hidden lg:block">
-                  <ProjectCard project={project} />
-                  <div>
-                    <ProjectDetails project={project} />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </>
-        );
-      })()}
+            {/* Desktop / Tablet layout (from 1024px and up) */}
+            <div className="hidden lg:block">
+              <ProjectCard project={project} onOpen={openProjectModal} />
+              <ProjectDetails project={project} useAccentBackground={index === 2} />
+            </div>
+          </article>
+        ))}
+      </section>
 
+      {/* Latest Projects Anchor */}
+      <div ref={latestStartRef} aria-hidden="true" className="h-px" />
+
+      {/* Latest Projects Section */}
+      <section className="my-12 md:my-20">
+        <LatestProjects />
+      </section>
+
+      {/* Footer */}
       <Footer />
-    </>
+
+      {/* Case Study Modal */}
+      <BaseModal isOpen={isModalOpen} onClose={closeProjectModal}>
+        {activeProject && (
+          <CaseStudyModal project={activeProject} />
+        )}
+      </BaseModal>
+    </main>
   );
 }

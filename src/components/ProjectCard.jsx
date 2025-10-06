@@ -4,7 +4,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 
-function ProjectCard({ project, imageSrc, bgColor = '#613CEB', linkText = 'Get a Sneak Peek', linkHref = '#', isVisible }) {
+function ProjectCard({ project, imageSrc, bgColor = '#613CEB', linkText = 'Get a Sneak Peek', linkHref = '#', isVisible, onOpen }) {
   const resolvedBg = project?.cardBgColor ?? bgColor;
   const resolvedImage = project?.cardImage ?? imageSrc ?? "/images/Loyatri.webp";
   const resolvedName = project?.name ?? 'LOYALTRI';
@@ -19,59 +19,74 @@ function ProjectCard({ project, imageSrc, bgColor = '#613CEB', linkText = 'Get a
     if (typeof window === 'undefined') return;
     gsap.registerPlugin(ScrollTrigger)
 
-    // Disable background/scroll effects on small screens
-    const isDesktopOrTablet = window.matchMedia('(min-width: 768px)').matches;
-    if (!isDesktopOrTablet) {
-      return;
-    }
-
     const ctx = gsap.context(() => {
       const sectionEl = sectionRef.current
       const q = gsap.utils.selector(sectionEl)
 
-      // Initial state: hidden
-      gsap.set(sectionEl, { autoAlpha: 0, y: 40 })
-      gsap.set(q('h3, h2, p, a'), { autoAlpha: 0, y: 20 })
+      const mm = gsap.matchMedia()
 
-      // Background transition for the whole screen tied to this card visibility
-      ScrollTrigger.create({
-        trigger: sectionEl,
-        start: 'top 90%',
-        end: 'bottom 60%',
-        onEnter: () => {
-          gsap.to([document.documentElement, document.body], {
-            backgroundColor: resolvedBg,
-            duration: 0.6,
-            ease: 'power2.out'
-          })
-        },
-        onEnterBack: () => {
-          gsap.to([document.documentElement, document.body], {
-            backgroundColor: resolvedBg,
-            duration: 0.6,
-            ease: 'power2.out'
-          })
-        },
-        onLeaveBack: () => {
-          // When scrolling back above the card, let previous section (banner or prior card) own the color
-          // Do nothing; Banner's trigger will re-apply its color
+      // Desktop/Tablet: enable scroll-driven background + reveals
+      mm.add('(min-width: 768px)', () => {
+        // Initial state: hidden
+        gsap.set(sectionEl, { autoAlpha: 0, y: 40 })
+        gsap.set(q('h3, h2, p, a'), { autoAlpha: 0, y: 20 })
+
+        // Background transition tied to this card visibility
+        ScrollTrigger.create({
+          trigger: sectionEl,
+          start: 'top 90%',
+          end: 'bottom 60%',
+          onEnter: () => {
+            gsap.to([document.documentElement, document.body], {
+              backgroundColor: resolvedBg,
+              duration: 0.6,
+              ease: 'power2.out'
+            })
+          },
+          onEnterBack: () => {
+            gsap.to([document.documentElement, document.body], {
+              backgroundColor: resolvedBg,
+              duration: 0.6,
+              ease: 'power2.out'
+            })
+          }
+        })
+
+        // Reveal card when it enters viewport
+        ScrollTrigger.create({
+          trigger: sectionEl,
+          start: 'top 85%',
+          onEnter: () => {
+            gsap.to(sectionEl, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+            gsap.to(q('h3, h2, p, a'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1, delay: 0.1, ease: 'power3.out' })
+          },
+          onLeaveBack: () => {
+            gsap.set(sectionEl, { autoAlpha: 0, y: 40 })
+            gsap.set(q('h3, h2, p, a'), { autoAlpha: 0, y: 20 })
+          }
+        })
+
+        // Return a cleanup for this media query only
+        return () => {
+          // nothing special, ScrollTriggers in this context are auto-cleaned by ctx.revert()
         }
       })
 
-      // Reveal card when it enters viewport
-      ScrollTrigger.create({
-        trigger: sectionEl,
-        start: 'top 85%',
-        onEnter: () => {
-          gsap.to(sectionEl, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' })
-          gsap.to(q('h3, h2, p, a'), { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1, delay: 0.1, ease: 'power3.out' })
-        },
-        // ensure it hides when scrolling back up
-        onLeaveBack: () => {
-          gsap.set(sectionEl, { autoAlpha: 0, y: 40 })
-          gsap.set(q('h3, h2, p, a'), { autoAlpha: 0, y: 20 })
+      // Small screens: force site background back to white (prevents cyan leak)
+      mm.add('(max-width: 767.98px)', () => {
+        gsap.to([document.documentElement, document.body], {
+          backgroundColor: '#FFFFFF',
+          duration: 0.4,
+          ease: 'power2.out'
+        })
+
+        return () => {
+          // ensure we leave background in a neutral state when this query unmatches
+          gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.2 })
         }
       })
+
+      return () => mm.revert()
     }, sectionRef)
 
     return () => ctx.revert()
@@ -80,7 +95,7 @@ function ProjectCard({ project, imageSrc, bgColor = '#613CEB', linkText = 'Get a
   return (
     <>
 
-<section ref={sectionRef} className="text-white h-[555px] px-6 md:px-20 rounded-[80px] relative overflow-hidden will-change-transform" style={{ backgroundColor: resolvedBg }} data-bg-color={resolvedBg}>
+<section ref={sectionRef} className="text-white h-[480px] px-6 md:px-20 rounded-[80px] relative overflow-hidden will-change-transform" style={{ backgroundColor: resolvedBg }} data-bg-color={resolvedBg}>
   <div className="flex flex-col lg:flex-row items-center lg:items-stretch gap-20 h-full">
 
     {/* Left Side - Image */}
@@ -104,6 +119,12 @@ function ProjectCard({ project, imageSrc, bgColor = '#613CEB', linkText = 'Get a
         href={resolvedLinkHref}
         className="flex flex-row items-center py-3 pl-6 pr-4 bg-white rounded-[66px] h-[64px] w-fit transition-base"
         style={{ boxShadow: '0 0 0 0 rgba(0,0,0,0)' }}
+        onClick={(e) => {
+          if (onOpen) {
+            e.preventDefault()
+            onOpen(project)
+          }
+        }}
         onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)'; }}
         onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 0 0 rgba(0,0,0,0)'; }}
       >
