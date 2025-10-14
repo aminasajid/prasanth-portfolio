@@ -113,18 +113,12 @@ const motusone = {
       },
     ],
     solutions: [
-      { 
-        title: 'Live Tracking Map', 
-        description: 'Unified vehicle map with status, routes, and ETA overlays.', 
-        image: '/images/motusone.webp',
-        imageClassName: 'absolute left-1/2 -translate-x-1/2 bottom-0 w-[90%] h-[240px] object-contain rounded-lg'
-      },
-      { 
-        title: 'Dispatcher Console', 
-        description: 'Assign trips, manage exceptions, and broadcast updates.', 
-        image: '/images/motusone-2.webp',
-        imageClassName: 'absolute left-0 top-0 w-full h-[280px] object-contain rounded-lg'
-      },
+      { image: '/images/motusone/dashboard-1.webp' },
+      { image: '/images/motusone/dashboard-2.webp' },
+      { image: '/images/motusone/dashboard-3.webp' },
+      { image: '/images/motusone/dashboard-4.webp' },
+      { image: '/images/motusone/dashboard-5.webp' },
+      { image: '/images/motusone/dashboard-6.webp' },
     ],
     results: {
       heading: ['Results', 'Logistics Outcomes'],
@@ -150,15 +144,15 @@ const motusone = {
     wireframes: {
       style: 'style2',
       title: 'Wireframes',
-      subtitle: 'Complete platform interface designs',
       bgColor: '#3366FF',
       images: [
-        '/images/motusone.webp',
-        '/images/motusone-2.webp',
-        '/images/motusone.webp',
-        '/images/motusone-2.webp',
-        '/images/motusone.webp',
-        '/images/motusone-2.webp'
+       '/images/motusone/wireframe-1.webp',
+        '/images/motusone/wireframe-2.webp',
+        '/images/motusone/wireframe-3.webp',
+       '/images/motusone/wireframe-4.webp',
+        '/images/motusone/wireframe-5.webp',
+        '/images/motusone/wireframe-6.webp',
+        '/images/motusone/wireframe-7.webp',
       ]
     }
   }

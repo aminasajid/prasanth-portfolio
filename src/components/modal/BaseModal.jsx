@@ -33,7 +33,7 @@ function BaseModal({ isOpen, onClose, children }) {
         onClick={() => onClose?.()}
       />
 
-      <div className="relative w-full max-w-9xl px-3 md:px-4 opacity-100 animate-[slideUp_220ms_ease-out] max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-[1300px] px-3 md:px-4 opacity-100 animate-[slideUp_220ms_ease-out] max-h-[90vh] overflow-y-auto">
         <div className="relative rounded-[40px] md:rounded-[56px] overflow-hidden shadow-2xl">
           {children}
           <button

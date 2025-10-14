@@ -106,42 +106,13 @@ const loyaltri = {
       },
     ],
     solutions: [
-      { 
-        title: 'Payroll Management', 
-        description: 'Digital onboarding with e-signatures & form automation', 
-        image: '/images/loyatri/dashboard-1.webp',
-        imageClassName: 'absolute left-1/2 -translate-x-1/2 bottom-0 w-[90%] h-[240px] object-contain rounded-lg'
-      },
-      { 
-        title: 'Recruitment Management', 
-        description: 'Attendance tracking with GPS & selfie-based check-ins', 
-        image: '/images/loyatri/dashboard-2.webp',
-        imageClassName: 'absolute left-0 bottom-0 w-full h-[260px] object-contain rounded-lg'
-      },
-      { 
-        title: 'Company & Employee Management', 
-        description: 'Automated payroll, WPS file generation, and tax compliance', 
-        image: '/images/loyatri/dashboard-3.webp',
-        imageClassName: 'absolute left-1/2 -translate-x-1/2 bottom-0 w-[90%] h-[240px] object-contain rounded-lg'
-      },
-      { 
-        title: 'Easy Onboarding & Offboarding', 
-        description: 'Leave & expense approval flows'
-      },
-      { 
-        title: 'Attendance Tracking', 
-        description: 'Performance tracking & document storage', 
-        image: '/images/loyatri/dashboard-5.webp',
-        imageClassName: 'absolute left-1/2 -translate-x-1/2 top-0 w-[90%] h-[300px] object-contain rounded-lg'
-      },
-      { 
-        title: 'Attendance Tracking', 
-        description: 'Performance tracking & document storage', 
-        image: '/images/loyatri/dashboard-6.webp',
-        imageClassName: 'absolute left-1/2 -translate-x-1/2 bottom-0 w-[90%] h-[240px] object-contain rounded-lg'
-      },
-
+      { image: '/images/loyatri/dashboard-1.webp' },
+      { image: '/images/loyatri/dashboard-2.webp' },
+      { image: '/images/loyatri/dashboard-3.webp' },
+      { image: '/images/loyatri/dashboard-5.webp' },
+      { image: '/images/loyatri/dashboard-6.webp' },
     ],
+    
     results: {
       heading: ['Results', 'Outcome Metrics'],
       columns: ['KPI', 'Before Loyaltri', 'After Loyaltri', 'Improvement'],
@@ -168,12 +139,11 @@ const loyaltri = {
     wireframes: {
       style: 'style1',
       title: 'Wireframes',
-      subtitle: 'High fidelity mobile & desktop designs',
-      bgColor: '#1a1a2e',
+      bgColor: '#EEEBFF',
       images: [
-        '/images/loyatri/dashboard-1.webp',
-        '/images/loyatri/dashboard-2.webp',
-        '/images/loyatri/dashboard-3.webp'
+        '/images/loyatri/wireframe-1.webp',
+        '/images/loyatri/wireframe-2.webp',
+        '/images/loyatri/wireframe-3.webp'
       ]
     }
   }

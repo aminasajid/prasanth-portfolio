@@ -111,18 +111,12 @@ const seed = {
       },
     ],
     solutions: [
-      { 
-        title: 'IEP Automation', 
-        description: 'Auto-generate plans with configurable templates and workflows.', 
-        image: '/images/seed.webp',
-        imageClassName: 'absolute left-1/2 -translate-x-1/2 bottom-0 w-[90%] h-[240px] object-contain rounded-lg'
-      },
-      { 
-        title: 'Progress Dashboard', 
-        description: 'Cohort and student-level analytics for outcomes.', 
-        image: '/images/seed-2.webp',
-        imageClassName: 'absolute left-0 bottom-0 w-full h-[260px] object-contain rounded-lg'
-      },
+      { image: '/images/seed/dashboard-1.webp' },
+      { image: '/images/seed/dashboard-2.webp' },
+      { image: '/images/seed/dashboard-3.webp' },
+      { image: '/images/seed/dashboard-4.webp' },
+      { image: '/images/seed/dashboard-5.webp' },
+  
     ],
     results: {
       title: 'Education Outcomes',
@@ -148,7 +142,6 @@ const seed = {
     wireframes: {
       style: 'style3',
       title: 'Wireframes',
-      subtitle: 'Dashboard and interface designs',
       bgColor: '#00D4AA',
       images: [
         '/images/seed.webp',
