@@ -34,20 +34,22 @@ function ProjectCard({ project, imageSrc, bgColor = '#613CEB', linkText = 'Get a
         // Background transition tied to this card visibility
         ScrollTrigger.create({
           trigger: sectionEl,
-          start: 'top 90%',
-          end: 'bottom 60%',
+          start: 'top 85%',
+          end: 'bottom 65%',
           onEnter: () => {
             gsap.to([document.documentElement, document.body], {
               backgroundColor: resolvedBg,
-              duration: 0.6,
-              ease: 'power2.out'
+              duration: 0.8,
+              ease: 'power2.inOut',
+              overwrite: true
             })
           },
           onEnterBack: () => {
             gsap.to([document.documentElement, document.body], {
               backgroundColor: resolvedBg,
-              duration: 0.6,
-              ease: 'power2.out'
+              duration: 0.8,
+              ease: 'power2.inOut',
+              overwrite: true
             })
           }
         })
@@ -72,17 +74,15 @@ function ProjectCard({ project, imageSrc, bgColor = '#613CEB', linkText = 'Get a
         }
       })
 
-      // Small screens: force site background back to white (prevents cyan leak)
+      // Small screens: force site background back to white (prevents color leak)
       mm.add('(max-width: 767.98px)', () => {
-        gsap.to([document.documentElement, document.body], {
-          backgroundColor: '#FFFFFF',
-          duration: 0.4,
-          ease: 'power2.out'
+        gsap.set([document.documentElement, document.body], {
+          backgroundColor: '#FFFFFF'
         })
 
         return () => {
           // ensure we leave background in a neutral state when this query unmatches
-          gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.2 })
+          gsap.set([document.documentElement, document.body], { backgroundColor: '#FFFFFF' })
         }
       })
 

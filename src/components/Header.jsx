@@ -2,7 +2,7 @@ import React from 'react';
 
 function Header() {
   return (
-    <header className="hidden lg:block px-4 xl:px-20 pt-10 md:pt-14 pb-5 md:pb-8">
+    <header className="hidden lg:block px-0 xl:px-20 pt-10 md:pt-14 pb-5 md:pb-8">
       <nav className="flex items-center justify-between gap-8" aria-label="Main navigation">
         {/* Left Menu */}
         <div className="flex gap-8 lg:gap-12 xl:gap-[53px] font-syne text-[#555] text-lg lg:text-xl font-bold tracking-[-0.4px] lg:tracking-[-0.64px]">

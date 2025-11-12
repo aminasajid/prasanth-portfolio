@@ -26,17 +26,32 @@ function Banner() {
       end: 'bottom 85%',
       onEnter: () => {
         // When banner is in view, restore page background to white so banner stands out
-        gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.5, ease: 'power2.out' });
+        gsap.to([document.documentElement, document.body], { 
+          backgroundColor: '#FFFFFF', 
+          duration: 0.8, 
+          ease: 'power2.inOut',
+          overwrite: true 
+        });
       },
       onEnterBack: () => {
-        gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.5, ease: 'power2.out' });
+        gsap.to([document.documentElement, document.body], { 
+          backgroundColor: '#FFFFFF', 
+          duration: 0.8, 
+          ease: 'power2.inOut',
+          overwrite: true 
+        });
       },
       onLeave: () => {
         // no-op; other sections will take over
       },
       onLeaveBack: () => {
         // When fully scrolled back above banner, keep page background white
-        gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.5, ease: 'power2.out' });
+        gsap.to([document.documentElement, document.body], { 
+          backgroundColor: '#FFFFFF', 
+          duration: 0.8, 
+          ease: 'power2.inOut',
+          overwrite: true 
+        });
       }
     });
 
@@ -46,9 +61,9 @@ function Banner() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative bg-[#F0F0F0] px-3 md:px-20 rounded-[30px] overflow-hidden flex flex-col justify-between will-change-transform animate-fade-in max-w-[1440px] mx-auto">
+    <section ref={sectionRef} className="relative bg-[#F0F0F0] px-0 md:px-20 rounded-[30px] overflow-hidden flex flex-col justify-between will-change-transform animate-fade-in max-w-[1440px] mx-auto">
       {/* Top Content */}
-      <div className="pt-8 lg:pt-24 z-10 relative will-change-transform animate-fade-up">
+      <div className="pt-8 lg:pt-24 z-10 relative will-change-transform animate-fade-up px-4 md:px-0">
         <span className="text-[#555] text-xl font-bold uppercase block mb-4">
           Nothing Is Perfect, So
         </span>
@@ -67,7 +82,7 @@ function Banner() {
       </div>
 
       {/* PRASANTH block with controlled vertical spacing */}
-      <div className="relative w-full pt-[40px] md:pt-[80px] bottom-0 z-0 will-change-transform animate-fade-up" style={{ animationDelay: '120ms' }}>
+      <div className="relative w-full pt-[40px] md:pt-[80px] bottom-0 z-0 will-change-transform animate-fade-up px-4 md:px-0" style={{ animationDelay: '120ms' }}>
         <span className="text-[#667085] text-sm md:text-xl font-bold uppercase tracking-[0.8px] block mb-2">
         Hey,I AM
         </span>

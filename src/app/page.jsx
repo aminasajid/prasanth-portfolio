@@ -28,24 +28,39 @@ export default function Home() {
     if (typeof window === 'undefined') return;
     gsap.registerPlugin(ScrollTrigger)
 
-    const lastAccent = '#30D5C7'
+    // Only apply background transitions on desktop/tablet
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+    if (!isDesktop) {
+      // Keep background white on mobile
+      gsap.set([document.documentElement, document.body], { backgroundColor: '#FFFFFF' })
+      return;
+    }
 
-    const st = ScrollTrigger.create({
+    // Create a ScrollTrigger for the Latest Projects section to reset background to white
+    const latestTrigger = ScrollTrigger.create({
       trigger: latestStartRef.current,
-      start: 'top 80%',
+      start: 'top 85%',
+      end: 'bottom 20%',
       onEnter: () => {
-        gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.5, ease: 'power2.out' })
+        gsap.to([document.documentElement, document.body], {
+          backgroundColor: '#FFFFFF',
+          duration: 0.8,
+          ease: 'power2.inOut',
+          overwrite: true
+        })
       },
       onEnterBack: () => {
-        gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.5, ease: 'power2.out' })
-      },
-      onLeaveBack: () => {
-        gsap.to([document.documentElement, document.body], { backgroundColor: lastAccent, duration: 0.5, ease: 'power2.out' })
+        gsap.to([document.documentElement, document.body], {
+          backgroundColor: '#FFFFFF',
+          duration: 0.8,
+          ease: 'power2.inOut',
+          overwrite: true
+        })
       }
     })
 
     return () => {
-      st.kill()
+      latestTrigger.kill()
     }
   }, [])
 
@@ -67,48 +82,50 @@ export default function Home() {
       {/* Hero Banner */}
       <Banner />
 
-      {/* Section Divider */}
-      <section className="text-center px-3 py-6 md:py-24">
-        <p className="text-[#555] text-lg md:text-xl font-bold uppercase">
-          NO BS, Let's Dive Straight into Some Designs
-        </p>
+      <section className="px-4">
+        {/* Section Divider */}
+        <section className="text-center px-0 py-6 md:py-24">
+          <p className="text-[#555] text-lg md:text-xl font-bold uppercase">
+            NO BS, Let's Dive Straight into Some Designs
+          </p>
+        </section>
+
+        {/* Projects Section */}
+        <section className="space-y-8 md:space-y-12">
+          {projects.map((project, index) => (
+            <article key={project.name || index} className={index === 0 ? "mt-0" : "mt-8 md:mt-12"}>
+              {/* Mobile combined view (visible up to 1024px) */}
+              <div className="lg:hidden">
+                <ProjectMobile project={project} onOpen={openProjectModal} />
+              </div>
+
+              {/* Desktop / Tablet layout (from 1024px and up) */}
+              <div className="hidden lg:block">
+                <ProjectCard project={project} onOpen={openProjectModal} />
+                <ProjectDetails project={project} useAccentBackground={index === 2} />
+              </div>
+            </article>
+          ))}
+        </section>
+
+        {/* Latest Projects Anchor */}
+        <div ref={latestStartRef} aria-hidden="true" className="h-px" />
+
+        {/* Latest Projects Section */}
+        <section className="my-12 md:my-20">
+          <LatestProjects />
+        </section>
+
+        {/* Footer */}
+        <Footer />
+
+        {/* Case Study Modal */}
+        <BaseModal isOpen={isModalOpen} onClose={closeProjectModal}>
+          {activeProject && (
+            <CaseStudyModal project={activeProject} />
+          )}
+        </BaseModal>
       </section>
-
-      {/* Projects Section */}
-      <section className="space-y-8 md:space-y-12">
-        {projects.map((project, index) => (
-          <article key={project.name || index} className={index === 0 ? "mt-0" : "mt-8 md:mt-12"}>
-            {/* Mobile combined view (visible up to 1024px) */}
-            <div className="lg:hidden">
-              <ProjectMobile project={project} onOpen={openProjectModal} />
-            </div>
-
-            {/* Desktop / Tablet layout (from 1024px and up) */}
-            <div className="hidden lg:block">
-              <ProjectCard project={project} onOpen={openProjectModal} />
-              <ProjectDetails project={project} useAccentBackground={index === 2} />
-            </div>
-          </article>
-        ))}
-      </section>
-
-      {/* Latest Projects Anchor */}
-      <div ref={latestStartRef} aria-hidden="true" className="h-px" />
-
-      {/* Latest Projects Section */}
-      <section className="my-12 md:my-20">
-        <LatestProjects />
-      </section>
-
-      {/* Footer */}
-      <Footer />
-
-      {/* Case Study Modal */}
-      <BaseModal isOpen={isModalOpen} onClose={closeProjectModal}>
-        {activeProject && (
-          <CaseStudyModal project={activeProject} />
-        )}
-      </BaseModal>
     </main>
   );
 }

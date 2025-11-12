@@ -36,12 +36,22 @@ function ProjectDetails({ project, mode = 'page', useAccentBackground = false })
           ScrollTrigger.create({
             trigger: el,
             start: 'top 85%',
-            end: 'bottom 60%',
+            end: 'bottom 65%',
             onEnter: () => {
-              gsap.to([document.documentElement, document.body], { backgroundColor: resolvedBg, duration: 0.6, ease: 'power2.out' })
+              gsap.to([document.documentElement, document.body], { 
+                backgroundColor: resolvedBg, 
+                duration: 0.8, 
+                ease: 'power2.inOut',
+                overwrite: true 
+              })
             },
             onEnterBack: () => {
-              gsap.to([document.documentElement, document.body], { backgroundColor: resolvedBg, duration: 0.6, ease: 'power2.out' })
+              gsap.to([document.documentElement, document.body], { 
+                backgroundColor: resolvedBg, 
+                duration: 0.8, 
+                ease: 'power2.inOut',
+                overwrite: true 
+              })
             }
           })
         }
@@ -75,10 +85,10 @@ function ProjectDetails({ project, mode = 'page', useAccentBackground = false })
       // Small screens: reset site background to white to avoid leaks (page only)
       mm.add('(max-width: 767.98px)', () => {
         if (!isModal) {
-          gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.4, ease: 'power2.out' })
+          gsap.set([document.documentElement, document.body], { backgroundColor: '#FFFFFF' })
 
           return () => {
-            gsap.to([document.documentElement, document.body], { backgroundColor: '#FFFFFF', duration: 0.2 })
+            gsap.set([document.documentElement, document.body], { backgroundColor: '#FFFFFF' })
           }
         }
         return () => {}

@@ -144,10 +144,10 @@ const seed = {
       title: 'Wireframes',
       bgColor: '#00D4AA',
       images: [
-        '/images/seed.webp',
-        '/images/seed-2.webp',
-        '/images/seed.webp',
-        '/images/seed-2.webp'
+        '/images/seed/wireframe-1.webp',
+        '/images/seed/wireframe-2.webp',
+        '/images/seed/wireframe-3.webp',
+        '/images/seed/wireframe-4.webp'
       ]
     }
   }
