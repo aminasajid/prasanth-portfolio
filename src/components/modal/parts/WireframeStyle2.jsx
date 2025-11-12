@@ -29,18 +29,16 @@ function WireframeStyle2({ title, subtitle, images = [], bgColor = '#3366FF' }) 
           {images.slice(0, 3).map((img, idx) => (
             <div
               key={idx}
-              className="relative rounded-3xl overflow-hidden flex-shrink-0"
+              className="relative rounded-3xl overflow-hidden p-4"
               style={{
-                minHeight: '250px',
                 maxWidth: '400px',
-                width: 'auto',
                 background: `linear-gradient(135deg, ${bgColor} 0%, ${bgColor}33 100%)`,
               }}
             >
               <img
                 src={img}
                 alt={`Screen ${idx + 1}`}
-                className="h-full w-auto object-contain rounded-2xl max-h-[450px]"
+                className="w-full h-auto object-contain rounded-2xl"
               />
             </div>
           ))}
@@ -49,45 +47,38 @@ function WireframeStyle2({ title, subtitle, images = [], bgColor = '#3366FF' }) 
         {/* Row 2 - Flexible widths */}
         <div className="flex justify-center gap-6 flex-wrap">
           <div
-            className="relative rounded-3xl overflow-hidden flex-shrink-0"
+            className="relative rounded-3xl overflow-hidden p-4"
             style={{
-              minHeight: '200px',
               maxWidth: '380px',
-              width: 'auto',
               background: `linear-gradient(135deg, ${bgColor} 0%, ${bgColor}33 100%)`,
             }}
           >
-            <img src={images[3]} alt="Screen 4" className="h-full w-auto object-contain rounded-2xl max-h-[400px]" />
+            <img src={images[3]} alt="Screen 4" className="w-full h-auto object-contain rounded-2xl" />
           </div>
           <div
-            className="relative rounded-3xl overflow-hidden flex-shrink-0"
+            className="relative rounded-3xl overflow-hidden p-4"
             style={{
-              minHeight: '200px',
               maxWidth: '380px',
-              width: 'auto',
               background: `linear-gradient(135deg, ${bgColor} 0%, ${bgColor}33 100%)`,
             }}
           >
-            <img src={images[4]} alt="Screen 5" className="h-full w-auto object-contain rounded-2xl max-h-[400px]" />
+            <img src={images[4]} alt="Screen 5" className="w-full h-auto object-contain rounded-2xl" />
           </div>
           <div
-            className="relative rounded-3xl overflow-hidden flex-shrink-0"
+            className="relative rounded-3xl overflow-hidden p-4"
             style={{
-              minHeight: '300px',
               maxWidth: '420px',
-              width: 'auto',
               background: `linear-gradient(135deg, ${bgColor} 0%, ${bgColor}44 100%)`,
             }}
           >
-            <img src={images[5]} alt="Screen 6" className="h-full w-auto object-contain rounded-2xl max-h-[450px]" />
+            <img src={images[5]} alt="Screen 6" className="w-full h-auto object-contain rounded-2xl" />
           </div>
         </div>
 
         {/* Row 3 - Full width */}
         <div
-          className="relative rounded-3xl overflow-hidden w-full"
+          className="relative rounded-3xl overflow-hidden p-4"
           style={{
-            minHeight: '350px',
             background: `linear-gradient(135deg, ${bgColor} 0%, ${bgColor}55 100%)`,
           }}
         >
